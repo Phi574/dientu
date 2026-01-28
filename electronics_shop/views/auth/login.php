@@ -1,41 +1,98 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
+    <meta charset="UTF-8">
     <title>Đăng nhập hệ thống</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
-        body { background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%); height: 100vh; display: flex; align-items: center; justify-content: center; }
-        .login-card { width: 400px; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #2563eb, #1e40af); /* Màu xanh giống mẫu */
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-box {
+            width: 360px;
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,.25);
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #1e3a8a;
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 15px;
+            box-sizing: border-box; /* Fix lỗi tràn lề */
+        }
+        input:focus {
+            border-color: #2563eb;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        button:hover {
+            background: #1d4ed8;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .footer-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        .footer-link a {
+            color: #2563eb;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 
-<div class="card login-card border-0">
-    <div class="card-header bg-white text-center py-4">
-        <h3 class="fw-bold text-primary">TECH ADMIN</h3>
-        <p class="text-muted mb-0">Đăng nhập để quản lý</p>
-    </div>
-    <div class="card-body p-4">
-        <?php if(isset($error_msg)): ?>
-            <div class="alert alert-danger text-center"><?php echo $error_msg; ?></div>
-        <?php endif; ?>
+<div class="login-box">
+    <h2>🔐 Đăng nhập Admin</h2>
 
-        <form action="index.php?page=login" method="POST">
-            <div class="mb-3">
-                <label class="form-label fw-bold">Tài khoản</label>
-                <input type="text" name="username" class="form-control" placeholder="Nhập username..." required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label fw-bold">Mật khẩu</label>
-                <input type="password" name="password" class="form-control" placeholder="Nhập mật khẩu..." required>
-            </div>
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary py-2 fw-bold">ĐĂNG NHẬP</button>
-            </div>
-        </form>
-    </div>
-    <div class="card-footer bg-light text-center py-3">
-        <a href="index.php" class="text-decoration-none small">Về trang chủ bán hàng</a>
+    <?php if(isset($_GET['error']) && $_GET['error'] == 1): ?>
+        <div class="error">❌ Sai tên đăng nhập hoặc mật khẩu!</div>
+    <?php endif; ?>
+
+    <form method="post" action="index.php?page=login&action=submit">
+        <input type="text" name="username" placeholder="Tên đăng nhập" required autofocus>
+        <input type="password" name="password" placeholder="Mật khẩu" required>
+
+        <button type="submit">Đăng nhập ngay</button>
+    </form>
+
+    <div class="footer-link">
+        <a href="index.php?page=home">← Quay về trang bán hàng</a>
     </div>
 </div>
 
