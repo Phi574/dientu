@@ -2,98 +2,103 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Đăng nhập hệ thống</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập Quản Trị - Tech Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body {
-            margin: 0;
-            font-family: 'Segoe UI', Arial, sans-serif;
-            background: linear-gradient(135deg, #2563eb, #1e40af); /* Màu xanh giống mẫu */
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
         }
-        .login-box {
-            width: 360px;
-            background: #fff;
-            padding: 40px 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,.25);
-        }
-        h2 {
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            padding: 40px;
             text-align: center;
-            margin-bottom: 30px;
-            color: #1e3a8a;
-            font-weight: bold;
         }
-        input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-size: 15px;
-            box-sizing: border-box; /* Fix lỗi tràn lề */
-        }
-        input:focus {
-            border-color: #2563eb;
-            outline: none;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background: #2563eb;
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: #0d6efd;
             color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            cursor: pointer;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin: 0 auto 20px;
+            box-shadow: 0 5px 15px rgba(13, 110, 253, 0.3);
+        }
+        .form-control {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #0d6efd;
+            background: #fff;
+        }
+        .btn-login {
+            background: #0d6efd;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
             font-weight: bold;
+            border: none;
             transition: 0.3s;
         }
-        button:hover {
-            background: #1d4ed8;
+        .btn-login:hover {
+            background: #0b5ed7;
+            transform: translateY(-2px);
         }
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 10px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-            text-align: center;
-            font-size: 14px;
-        }
-        .footer-link {
-            text-align: center;
+        .home-link {
+            display: block;
             margin-top: 20px;
+            color: #6c757d;
+            text-decoration: none;
             font-size: 14px;
         }
-        .footer-link a {
-            color: #2563eb;
-            text-decoration: none;
-        }
+        .home-link:hover { color: #0d6efd; }
     </style>
 </head>
 <body>
 
-<div class="login-box">
-    <h2>🔐 Đăng nhập Admin</h2>
+<div class="login-card">
+    <div class="login-icon">
+        <i class="bi bi-shield-lock-fill"></i>
+    </div>
+    <h4 class="fw-bold mb-1">QUẢN TRỊ VIÊN</h4>
+    <p class="text-muted small mb-4">Vui lòng đăng nhập để tiếp tục</p>
 
-    <?php if(isset($_GET['error']) && $_GET['error'] == 1): ?>
-        <div class="error">❌ Sai tên đăng nhập hoặc mật khẩu!</div>
+    <?php if(isset($error_msg)): ?>
+        <div class="alert alert-danger p-2 small"><?php echo $error_msg; ?></div>
     <?php endif; ?>
 
-    <form method="post" action="index.php?page=login&action=submit">
-        <input type="text" name="username" placeholder="Tên đăng nhập" required autofocus>
-        <input type="password" name="password" placeholder="Mật khẩu" required>
-
-        <button type="submit">Đăng nhập ngay</button>
+    <form action="index.php?page=login&action=login" method="POST">
+        <div class="text-start">
+            <input type="text" name="username" class="form-control" placeholder="Tên đăng nhập" required autofocus>
+        </div>
+        <div class="text-start">
+            <input type="password" name="password" class="form-control" placeholder="Mật khẩu" required>
+        </div>
+        
+        <button type="submit" class="btn-login">
+            ĐĂNG NHẬP <i class="bi bi-arrow-right-short"></i>
+        </button>
     </form>
 
-    <div class="footer-link">
-        <a href="index.php?page=home">← Quay về trang bán hàng</a>
-    </div>
+    <a href="index.php" class="home-link"><i class="bi bi-arrow-left"></i> Quay về trang bán hàng</a>
 </div>
 
 </body>
