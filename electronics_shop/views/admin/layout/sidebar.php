@@ -26,7 +26,7 @@
         </li>
         
         <li class="nav-item">
-            <a href="index.php?page=admin_orders" class="nav-link <?php echo ($_GET['page']=='admin_orders')?'active':''; ?> text-white fw-bold bg-primary bg-opacity-25 rounded">
+            <a href="index.php?page=admin_orders" class="nav-link <?php echo ($_GET['page']=='admin_orders')?'active':''; ?>">
                 <i class="bi bi-receipt"></i> Quản lý Đơn hàng
             </a>
         </li>

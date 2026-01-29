@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     <style>
         body { background-color: #f8f9fa; font-family: 'Segoe UI', sans-serif; }
-        .main-content { margin-left: 250px; padding: 20px; transition: 0.3s; }
+        
+        /* SỬA LỖI: Xóa margin-left để nội dung nằm ngay sát menu */
+        .main-content { padding: 20px; transition: 0.3s; flex-grow: 1; }
+        
         .card { border: none; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .table img { width: 50px; height: 50px; object-fit: cover; border-radius: 5px; }
         .action-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 5px; }
@@ -16,13 +19,13 @@
 </head>
 <body>
 
-<div class="d-flex">
+<div class="d-flex" style="min-height: 100vh;">
     <?php include 'views/admin/layout/sidebar.php'; ?>
 
-    <div class="main-content flex-grow-1">
+    <div class="main-content">
         <div class="container-fluid">
             <div class="d-flex justify-content-between align-items-center mb-4">
-                <h4 class="fw-bold text-primary"><i class="bi bi-box-seam"></i> DANH SÁCH SẢN PHẨM</h4>
+                <h4 class="fw-bold text-primary m-0"><i class="bi bi-box-seam"></i> DANH SÁCH SẢN PHẨM</h4>
                 <a href="index.php?page=admin_products&action=create" class="btn btn-primary fw-bold shadow-sm">
                     <i class="bi bi-plus-lg"></i> Thêm mới
                 </a>
@@ -63,7 +66,15 @@
                                                 <span class="badge bg-secondary">0%</span>
                                             <?php endif; ?>
                                         </td>
-                                        <td><?php echo $p['category']; ?></td>
+                                        <td>
+                                            <?php 
+                                                $cats = [
+                                                    'phone' => 'Điện thoại', 'laptop' => 'Laptop', 'tablet' => 'Tablet', 
+                                                    'audio' => 'Tai nghe', 'watch' => 'Đồng hồ', 'pc' => 'PC & Màn', 'accessory' => 'Phụ kiện'
+                                                ];
+                                                echo isset($cats[$p['category']]) ? $cats[$p['category']] : $p['category'];
+                                            ?>
+                                        </td>
                                         <td><?php echo $p['brand']; ?></td>
                                         <td>
                                             <a href="index.php?page=admin_products&action=edit&id=<?php echo $p['id']; ?>" class="btn btn-sm btn-light text-primary action-btn me-1" title="Sửa"><i class="bi bi-pencil-square"></i></a>

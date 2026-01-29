@@ -5,9 +5,9 @@ define('BASE_URL', 'http://localhost/electronics_shop/');
 include_once 'config/database.php';
 include_once 'models/Product.php';
 
-// --- THÊM MỚI: Gọi Controller xử lý Đơn hàng và Giỏ hàng ---
 include_once 'controllers/CartController.php';
 include_once 'controllers/OrderController.php'; 
+include_once 'controllers/DashboardController.php';
 // --------------------------------------------------------
 
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
@@ -19,6 +19,7 @@ $db = $database->getConnection();
 // Khởi tạo các Controller mới
 $cartController = new CartController($db);
 $orderController = new OrderController($db);
+$dashboardController = new DashboardController($db);
 
 // --- BẢO MẬT (GATEKEEPER) ---
 // Chặn mọi truy cập vào trang admin_... nếu chưa đăng nhập
@@ -65,6 +66,11 @@ switch ($page) {
         break;
 
     // --- ADMIN ---
+
+    case 'admin_dashboard':
+        $dashboardController->index();
+        break;
+
     case 'admin_products':
         include 'controllers/ProductController.php';
         break;
