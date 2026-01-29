@@ -1,12 +1,15 @@
 <?php
 // index.php
 session_start();
+
+// Đổi đường dẫn này nếu thư mục của bạn khác tên
 define('BASE_URL', 'http://localhost/electronics_shop/');
 
 include_once 'config/database.php';
 include_once 'models/Product.php';
+// Lưu ý: Không cần include Model User ở đây vì AuthController sẽ tự gọi
 
-// Lấy tham số điều hướng
+// Lấy tham số điều hướng từ URL
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Kết nối CSDL
@@ -14,10 +17,9 @@ $database = new Database();
 $db = $database->getConnection();
 
 // --- LOGIC BẢO MẬT (GATEKEEPER) ---
-// Nếu trang bắt đầu bằng chữ "admin_" VÀ người dùng CHƯA đăng nhập
+// Nếu vào trang Admin (có chữ 'admin_') mà CHƯA đăng nhập -> Đá về trang Login
 if (strpos($page, 'admin_') === 0) {
     if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
-        // Đá về trang login ngay lập tức
         header("Location: index.php?page=login");
         exit;
     }
@@ -30,13 +32,13 @@ switch ($page) {
         include 'controllers/HomeController.php';
         break;
         
-    // --- KHU VỰC AUTH (Đăng nhập/Đăng xuất) ---
+    // --- KHU VỰC AUTH (Quan trọng: Đã thêm lại phần này) ---
     case 'login':
     case 'logout':
         include 'controllers/AuthController.php';
         break;
 
-    // --- KHU VỰC ADMIN (Đã được bảo vệ ở trên) ---
+    // --- KHU VỰC ADMIN ---
     case 'admin_products':
         include 'controllers/ProductController.php';
         break;
@@ -46,7 +48,9 @@ switch ($page) {
         break;
         
     default:
-        echo "404 - Trang không tồn tại";
+        // Nếu không tìm thấy trang thì về trang chủ hoặc báo lỗi
+        echo "<h2 style='text-align:center; margin-top:50px;'>404 - Trang không tồn tại</h2>";
+        echo "<p style='text-align:center;'><a href='index.php'>Về trang chủ</a></p>";
         break;
 }
 ?>
