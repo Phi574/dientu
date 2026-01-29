@@ -12,6 +12,23 @@ switch ($action) {
         include 'views/admin/product_list.php';
         break;
 
+    case 'index': 
+        // Lấy các tham số từ URL
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        $category = isset($_GET['category']) ? $_GET['category'] : '';
+        $brand = isset($_GET['brand']) ? $_GET['brand'] : '';
+        $price_range = isset($_GET['price']) ? $_GET['price'] : '';
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
+
+        // Gọi hàm lọc
+        $products = $productModel->filter($keyword, $category, $brand, $price_range, $sort);
+        
+        // Lấy danh sách hãng để hiện checkbox lọc
+        $brands = $productModel->getAllBrands();
+        
+        include 'views/user/products.php';
+        break;
+
     case 'detail':
         if (isset($_GET['id'])) {
             $productModel->id = $_GET['id'];
@@ -30,7 +47,7 @@ switch ($action) {
             }
         }
         break;
-        
+
     // 2. THÊM SẢN PHẨM (Xử lý form)
     case 'create':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -38,6 +55,7 @@ switch ($action) {
             $productModel->name = $_POST['name'];
             $productModel->brand = $_POST['brand'];      // Mới
             $productModel->price = $_POST['price'];
+            $productModel->category = $_POST['category'];
             $productModel->discount = $_POST['discount']; // Mới
             $productModel->description = $_POST['description'];
             
@@ -128,6 +146,7 @@ switch ($action) {
             $productModel->name = $_POST['name'];
             $productModel->brand = $_POST['brand'];
             $productModel->price = $_POST['price'];
+            $productModel->category = $_POST['category'];
             $productModel->discount = $_POST['discount'];
             $productModel->description = $_POST['description'];
 

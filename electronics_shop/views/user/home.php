@@ -163,29 +163,101 @@
             </div>
         </div>
     </div>
-
     <div class="my-5">
-        <h5 class="fw-bold mb-4">DANH MỤC NỔI BẬT</h5>
-        <div class="d-flex gap-4 overflow-auto pb-3 text-nowrap">
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-phone"></i></div><small class="fw-bold">Điện thoại</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-laptop"></i></div><small class="fw-bold">Laptop</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-tablet"></i></div><small class="fw-bold">Tablet</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-earbuds"></i></div><small class="fw-bold">Tai nghe</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-smartwatch"></i></div><small class="fw-bold">Đồng hồ</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-pc-display"></i></div><small class="fw-bold">PC & Màn hình</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-mouse"></i></div><small class="fw-bold">Phụ kiện</small></div>
-            <div class="cat-item"><div class="cat-icon"><i class="bi bi-printer"></i></div><small class="fw-bold">Máy in</small></div>
-        </div>
+    <h5 class="fw-bold mb-4">DANH MỤC NỔI BẬT</h5>
+    
+    <?php 
+        // Lấy danh mục đang chọn từ URL (nếu không có thì mặc định là rỗng)
+        $cat = isset($_GET['category']) ? $_GET['category'] : ''; 
+    ?>
+
+    <div class="d-flex gap-4 overflow-auto pb-3 text-nowrap">
+        
+        <a href="index.php?page=home&category=phone" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'phone') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-phone"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'phone') ? 'text-primary' : ''; ?>">Điện thoại</small>
+            </div>
+        </a>
+
+        <a href="index.php?page=home&category=laptop" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'laptop') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-laptop"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'laptop') ? 'text-primary' : ''; ?>">Laptop</small>
+            </div>
+        </a>
+
+        <a href="index.php?page=home&category=tablet" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'tablet') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-tablet"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'tablet') ? 'text-primary' : ''; ?>">Tablet</small>
+            </div>
+        </a>
+
+        <a href="index.php?page=home&category=audio" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'audio') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-earbuds"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'audio') ? 'text-primary' : ''; ?>">Tai nghe</small>
+            </div>
+        </a>
+
+        <a href="index.php?page=home&category=watch" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'watch') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-smartwatch"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'watch') ? 'text-primary' : ''; ?>">Đồng hồ</small>
+            </div>
+        </a>
+
+        <a href="index.php?page=home&category=pc" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'pc') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-pc-display"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'pc') ? 'text-primary' : ''; ?>">PC & Màn</small>
+            </div>
+        </a>
+
+        <a href="index.php?page=home&category=accessory" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == 'accessory') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-mouse"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == 'accessory') ? 'text-primary' : ''; ?>">Phụ kiện</small>
+            </div>
+        </a>
+        
+        <a href="index.php?page=home" class="text-decoration-none text-dark">
+            <div class="cat-item">
+                <div class="cat-icon <?php echo ($cat == '') ? 'bg-primary text-white shadow' : ''; ?>">
+                    <i class="bi bi-grid-fill"></i>
+                </div>
+                <small class="fw-bold <?php echo ($cat == '') ? 'text-primary' : ''; ?>">Tất cả</small>
+            </div>
+        </a>
+
     </div>
+</div>
 
     <div class="mb-5 rounded overflow-hidden">
         <img src="//cdnv2.tgdd.vn/mwg-static/tgdd/Banner/c4/0f/c40fbe43287853a4bf2dc845557a5cef.png" class="w-100 object-fit-cover">
     </div>
 
     <div class="section-title">
-        <span><i class="bi bi-fire text-danger"></i> GỢI Ý CHO BẠN</span>
-        <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">Xem tất cả <i class="bi bi-chevron-right"></i></a>
-    </div>
+    <span><i class="bi bi-fire text-danger"></i> GỢI Ý CHO BẠN</span>
+    <a href="index.php?page=products" class="btn btn-outline-primary btn-sm rounded-pill px-3">
+        Xem tất cả <i class="bi bi-chevron-right"></i>
+    </a>
+</div>
 
     <div class="row g-3 mb-5">
         <?php foreach ($products as $p): ?>
@@ -200,17 +272,20 @@
                 $rating = rand(4, 5); 
                 $sold = rand(10, 999);
             ?>
-        <div class="col-6 col-md-4 col-lg-3 col-xl-2-4"> <div class="card-product h-100">
-                <?php if($discount > 0): ?>
-                    <div class="discount-badge">-<?php echo $discount; ?>%</div>
-                <?php endif; ?>
-                
-                <div class="card-img-wrapper">
-                    <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>">
-                        <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" onerror="this.src='https://via.placeholder.com/300'">
-                    </a>
-                    <div class="installment-badge">Trả góp 0%</div>
-                </div>
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2-4">
+    <div class="card-product h-100">
+        
+        <div class="card-img-wrapper">
+            <?php if($discount > 0): ?>
+                <div class="discount-badge" style="z-index: 10;">-<?php echo $discount; ?>%</div>
+            <?php endif; ?>
+            <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>">
+                <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" onerror="this.src='https://via.placeholder.com/300'">
+            </a>
+            <div class="installment-badge">Trả góp 0%</div>
+        </div>
+
+        <div class="card-body d-flex flex-column">
 
                 <div class="card-body d-flex flex-column">
                     <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>" class="product-name" title="<?php echo $p['name']; ?>">
@@ -269,14 +344,22 @@
                 </ul>
             </div>
             <div class="col-md-3 mb-4">
-                <h6 class="text-white fw-bold mb-3">Thanh toán miễn phí</h6>
-                <div class="d-flex gap-2 flex-wrap">
-                    <img src="https://via.placeholder.com/50x30/fff/333?text=VISA" class="rounded">
-                    <img src="https://via.placeholder.com/50x30/fff/333?text=MC" class="rounded">
-                    <img src="https://via.placeholder.com/50x30/fff/333?text=MOMO" class="rounded">
-                    <img src="https://via.placeholder.com/50x30/fff/333?text=ZALO" class="rounded">
-                </div>
+            <h6 class="text-white fw-bold mb-3">Thanh toán miễn phí</h6>
+            <div class="d-flex gap-2 flex-wrap">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" 
+            class="rounded bg-white p-1" 
+            style="width: 50px; height: 30px; object-fit: contain;">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" 
+            class="rounded bg-white p-1" 
+            style="width: 50px; height: 30px; object-fit: contain;">
+            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-MoMo-Square.png" 
+            class="rounded" 
+            style="width: 50px; height: 30px; object-fit: cover;">                
+            <img src="https://cdn.haitrieu.com/wp-content/uploads/2022/10/Logo-ZaloPay-Square.png" 
+             class="rounded" 
+             style="width: 50px; height: 30px; object-fit: cover;">   
             </div>
+        </div>
         </div>
     </div>
     <div class="bg-black py-3 text-center small">

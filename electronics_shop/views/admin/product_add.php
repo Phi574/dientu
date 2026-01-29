@@ -42,6 +42,19 @@
                     <textarea name="description" class="form-control" rows="4" placeholder="Nhập thông tin chi tiết sản phẩm..."></textarea>
                 </div>
 
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Loại sản phẩm</label>
+                    <select name="category" class="form-select" required>
+                        <option value="">-- Chọn loại --</option>
+                        <option value="phone">Điện thoại</option>
+                        <option value="laptop">Laptop</option>
+                        <option value="tablet">Tablet (Máy tính bảng)</option>
+                        <option value="audio">Tai nghe / Loa</option>
+                        <option value="watch">Đồng hồ thông minh</option>
+                        <option value="pc">PC & Màn hình</option>
+                        <option value="accessory">Phụ kiện</option>
+                    </select>
+                </div>
                 <div class="mb-4 p-3 border rounded bg-white">
                     <label class="form-label fw-bold text-danger">Hình ảnh sản phẩm (Chọn nhiều ảnh)</label>
                     <div class="input-group">

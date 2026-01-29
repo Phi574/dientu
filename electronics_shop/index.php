@@ -32,6 +32,10 @@ switch ($page) {
         include 'controllers/HomeController.php';
         break;
 
+    case 'products': // Trang danh sách sản phẩm (Shop)
+        include 'controllers/ProductController.php'; 
+        break;
+
     case 'product_detail':
         include 'controllers/ProductController.php';
         break;
