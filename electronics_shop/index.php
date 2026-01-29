@@ -4,13 +4,19 @@ define('BASE_URL', 'http://localhost/electronics_shop/');
 
 include_once 'config/database.php';
 include_once 'models/Product.php';
+
+// --- THÊM MỚI: Gọi Controller xử lý Đơn hàng và Giỏ hàng ---
 include_once 'controllers/CartController.php';
-include_once 'controllers/OrderController.php';
+include_once 'controllers/OrderController.php'; 
+// --------------------------------------------------------
+
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Kết nối CSDL
 $database = new Database();
 $db = $database->getConnection();
+
+// Khởi tạo các Controller mới
 $cartController = new CartController($db);
 $orderController = new OrderController($db);
 
@@ -30,7 +36,7 @@ switch ($page) {
         include 'controllers/HomeController.php';
         break;
         
-    case 'products': // Trang "Xem tất cả" (Shop)
+    case 'products': // Trang "Xem tất cả"
         include 'controllers/ProductController.php';
         break;
         
@@ -38,22 +44,7 @@ switch ($page) {
         include 'controllers/ProductController.php';
         break;
 
-    // --- ĐĂNG NHẬP / ĐĂNG XUẤT ---
-    case 'login':
-    case 'logout': 
-        include 'controllers/AuthController.php';
-        break;
-
-    // --- ADMIN (Đã được bảo vệ ở trên) ---
-    case 'admin_products':
-        include 'controllers/ProductController.php';
-        break;
-        
-    case 'admin_banners':
-        include 'controllers/BannerController.php';
-        break;
-    
-    // --- GIỎ HÀNG & THANH TOÁN ---
+    // --- GIỎ HÀNG & THANH TOÁN (USER) ---
     case 'cart':
         $cartController->index();
         break;
@@ -67,17 +58,34 @@ switch ($page) {
         $cartController->checkout();
         break;
 
-    // --- QUẢN LÝ ĐƠN HÀNG ---
-    case 'admin_orders':
-        $orderController->list();
+    // --- ĐĂNG NHẬP / ĐĂNG XUẤT ---
+    case 'login':
+    case 'logout': 
+        include 'controllers/AuthController.php';
+        break;
+
+    // --- ADMIN ---
+    case 'admin_products':
+        include 'controllers/ProductController.php';
         break;
         
+    case 'admin_orders':
+        $orderController->list(); // Gọi hàm hiển thị danh sách đơn
+        break;
+
     case 'admin_order_update':
-        $orderController->updateStatus();
+        $orderController->updateStatus(); // Gọi hàm cập nhật trạng thái
+        break;
+
+    case 'admin_banners':
+        include 'controllers/BannerController.php';
         break;
         
     default:
-        echo "<h2 class='text-center mt-5'>404 - Trang không tồn tại</h2>";
+        echo "<div style='text-align:center; margin-top:50px;'>
+                <h2>404 - Trang không tồn tại</h2>
+                <a href='index.php'>Quay về trang chủ</a>
+              </div>";
         break;
 }
 ?>
