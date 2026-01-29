@@ -1,23 +1,17 @@
 <?php
-// index.php
 session_start();
-
-// Đổi đường dẫn này nếu thư mục của bạn khác tên
 define('BASE_URL', 'http://localhost/electronics_shop/');
 
 include_once 'config/database.php';
 include_once 'models/Product.php';
-// Lưu ý: Không cần include Model User ở đây vì AuthController sẽ tự gọi
-
-// Lấy tham số điều hướng từ URL
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Kết nối CSDL
 $database = new Database();
 $db = $database->getConnection();
 
-// --- LOGIC BẢO MẬT (GATEKEEPER) ---
-// Nếu vào trang Admin (có chữ 'admin_') mà CHƯA đăng nhập -> Đá về trang Login
+// --- BẢO MẬT (GATEKEEPER) ---
+// Chặn mọi truy cập vào trang admin_... nếu chưa đăng nhập
 if (strpos($page, 'admin_') === 0) {
     if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
         header("Location: index.php?page=login");
@@ -27,26 +21,26 @@ if (strpos($page, 'admin_') === 0) {
 // ----------------------------------
 
 switch ($page) {
-    // --- KHU VỰC KHÁCH HÀNG ---
+    // --- KHÁCH HÀNG ---
     case 'home':
         include 'controllers/HomeController.php';
         break;
-
-    case 'products': // Trang danh sách sản phẩm (Shop)
-        include 'controllers/ProductController.php'; 
-        break;
-
-    case 'product_detail':
+        
+    case 'products': // Trang "Xem tất cả" (Shop)
         include 'controllers/ProductController.php';
         break;
         
-    // --- KHU VỰC AUTH (Quan trọng: Đã thêm lại phần này) ---
+    case 'product_detail':
+        include 'controllers/ProductController.php';
+        break;
+
+    // --- ĐĂNG NHẬP / ĐĂNG XUẤT ---
     case 'login':
     case 'logout':
         include 'controllers/AuthController.php';
         break;
 
-    // --- KHU VỰC ADMIN ---
+    // --- ADMIN (Đã được bảo vệ ở trên) ---
     case 'admin_products':
         include 'controllers/ProductController.php';
         break;
@@ -56,9 +50,7 @@ switch ($page) {
         break;
         
     default:
-        // Nếu không tìm thấy trang thì về trang chủ hoặc báo lỗi
-        echo "<h2 style='text-align:center; margin-top:50px;'>404 - Trang không tồn tại</h2>";
-        echo "<p style='text-align:center;'><a href='index.php'>Về trang chủ</a></p>";
+        echo "<h2 class='text-center mt-5'>404 - Trang không tồn tại</h2>";
         break;
 }
 ?>
