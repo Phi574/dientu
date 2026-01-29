@@ -3,170 +3,235 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tech Store - Thế giới công nghệ</title>
+    <title>Tech Store - Hệ thống bán lẻ công nghệ số 1</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
     
     <style>
-        /* CSS CHUẨN ĐỂ HIỂN THỊ ĐẸP */
-        :root { --primary-color: #0d6efd; --secondary-color: #0a58ca; }
-        body { background-color: #f4f6f9; font-family: 'Segoe UI', sans-serif; }
+        :root { --primary-color: #0d6efd; --secondary-color: #0a58ca; --accent-color: #ffc107; }
+        body { background-color: #f0f2f5; font-family: 'Segoe UI', sans-serif; }
         
-        /* Navbar & Header */
-        .navbar { background-color: #fff !important; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .navbar-brand { font-weight: 800; color: var(--primary-color) !important; font-size: 26px; text-transform: uppercase; letter-spacing: 1px; }
-        .nav-link { color: #555 !important; font-weight: 500; transition: 0.3s; }
-        .nav-link:hover { color: var(--primary-color) !important; }
+        /* Navbar Custom */
+        .navbar { background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .search-box { background: #f3f4f6; border-radius: 20px; padding: 5px 15px; width: 400px; display: flex; align-items: center; }
+        .search-input { border: none; background: transparent; outline: none; width: 100%; margin-left: 10px; }
         
-        .search-box { background: #f1f3f5; border-radius: 30px; padding: 5px 15px; display: flex; align-items: center; }
-        .search-input { border: none; background: transparent; outline: none; width: 250px; margin-left: 10px; }
+        /* Slider & Banner Area */
+        .hero-section { margin-top: 20px; }
+        .carousel-item img { height: 380px; object-fit: cover; border-radius: 8px; }
+        .right-banner img { height: 185px; width: 100%; object-fit: cover; border-radius: 8px; transition: transform 0.3s; }
+        .right-banner img:hover { transform: scale(1.02); }
         
-        /* Card sản phẩm */
-        .card { border: none; border-radius: 12px; transition: all 0.3s; overflow: hidden; background: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(13, 110, 253, 0.15); }
-        .card-img-top { height: 200px; object-fit: contain; padding: 20px; transition: transform 0.5s; }
-        .card:hover .card-img-top { transform: scale(1.08); }
+        /* Policy Bar */
+        .policy-section { background: #fff; padding: 20px; border-radius: 8px; margin-top: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+        .policy-item { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; font-weight: 500; }
+        .policy-icon { font-size: 24px; color: var(--primary-color); }
+
+        /* Category Circle */
+        .cat-item { text-align: center; cursor: pointer; transition: 0.3s; }
+        .cat-item:hover { transform: translateY(-5px); }
+        .cat-icon { width: 60px; height: 60px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; margin: 0 auto 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); color: var(--primary-color); }
+        .cat-item:hover .cat-icon { background: var(--primary-color); color: #fff; }
+
+        /* Product Card "Xịn" */
+        .section-title { font-weight: 800; text-transform: uppercase; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .card-product { border: none; border-radius: 12px; background: #fff; transition: all 0.3s; position: relative; overflow: hidden; height: 100%; }
+        .card-product:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .card-img-wrapper { height: 200px; padding: 20px; display: flex; align-items: center; justify-content: center; position: relative; }
+        .card-img-top { max-height: 100%; object-fit: contain; transition: 0.5s; }
+        .card-product:hover .card-img-top { transform: scale(1.1); }
         
-        .price-tag { color: #dc3545; font-size: 1.1rem; font-weight: 700; }
-        .price-old { color: #999; font-size: 0.9rem; text-decoration: line-through; margin-left: 8px; }
-        .brand-tag { font-size: 0.8rem; text-transform: uppercase; color: #6c757d; font-weight: 600; letter-spacing: 0.5px; }
+        .discount-badge { position: absolute; top: 10px; left: 10px; background: #dc3545; color: #fff; padding: 2px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .installment-badge { position: absolute; bottom: 10px; left: 10px; background: #f8f9fa; color: #333; padding: 2px 6px; border-radius: 4px; font-size: 11px; border: 1px solid #ddd; }
         
-        .btn-add-cart { background-color: var(--primary-color); color: white; border-radius: 50px; padding: 8px 0; font-weight: 600; border: none; width: 100%; transition: 0.3s; }
-        .btn-add-cart:hover { background-color: var(--secondary-color); }
+        .card-body { padding: 15px; }
+        .product-name { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 42px; text-decoration: none; }
+        .product-name:hover { color: var(--primary-color); }
         
-        /* Carousel Banner */
-        .carousel-item img { height: 400px; object-fit: cover; }
+        .price-row { display: flex; align-items: baseline; gap: 8px; margin-bottom: 5px; }
+        .current-price { color: #d70018; font-weight: 700; font-size: 18px; }
+        .old-price { color: #707070; text-decoration: line-through; font-size: 14px; }
+        
+        .rating-row { font-size: 12px; color: #ffc107; margin-bottom: 10px; display: flex; align-items: center; }
+        .sold-count { color: #777; margin-left: 5px; font-size: 12px; }
+        
+        .btn-hover-cart { width: 100%; background: #fff; border: 1px solid var(--primary-color); color: var(--primary-color); font-weight: 600; border-radius: 5px; padding: 8px; transition: 0.3s; opacity: 0; transform: translateY(20px); }
+        .card-product:hover .btn-hover-cart { opacity: 1; transform: translateY(0); background: var(--primary-color); color: #fff; }
+
+        /* Footer */
+        footer { background: #212529; color: #bbb; padding-top: 50px; }
+        footer a { color: #bbb; text-decoration: none; transition: 0.3s; }
+        footer a:hover { color: #fff; }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg sticky-top py-3">
+<nav class="navbar navbar-expand-lg sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="index.php">
-            <i class="bi bi-cpu-fill"></i> TECH STORE
+        <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+            <i class="bi bi-cpu-fill text-primary fs-2"></i> 
+            <div>
+                <span class="d-block lh-1 fw-bold text-primary">TECH</span>
+                <span class="d-block lh-1 fs-6 text-dark">STORE</span>
+            </div>
         </a>
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <div class="search-box d-none d-lg-flex">
+            <i class="bi bi-search text-muted"></i>
+            <input type=\"text\" class="search-input" placeholder="Bạn cần tìm gì? iPhone 15, Macbook...">
+        </div>
 
-        <div class="collapse navbar-collapse" id="navbarContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#">Trang chủ</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Điện thoại</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Laptop</a></li>
-                <li class="nav-item"><a class="nav-link" href="#">Phụ kiện</a></li>
-            </ul>
-
-            <div class="d-flex align-items-center gap-3">
-                <div class="search-box d-none d-lg-flex">
-                    <i class="bi bi-search text-muted"></i>
-                    <input type="text" class="search-input" placeholder="Bạn tìm gì hôm nay?">
+        <div class="d-flex align-items-center gap-4">
+            <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+                <i class="bi bi-telephone-fill fs-5"></i>
+                <div class="d-none d-xl-block">
+                    <small class="d-block text-muted" style="font-size: 11px;">Hotline</small>
+                    <span class="fw-bold" style="font-size: 14px;">1900.6789</span>
                 </div>
-                <a href="index.php?page=admin_products" class="btn btn-outline-primary rounded-circle" title="Quản trị viên">
-                    <i class="bi bi-person-fill"></i>
-                </a>
-                <a href="#" class="btn btn-light rounded-circle position-relative text-primary">
-                    <i class="bi bi-cart3 fs-5"></i>
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">0</span>
-                </a>
-            </div>
+            </a>
+            <a href="index.php?page=admin_products" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
+                <i class="bi bi-person-circle fs-4 text-primary"></i>
+                <div class="d-none d-xl-block">
+                    <small class="d-block text-muted" style="font-size: 11px;">Xin chào,</small>
+                    <span class="fw-bold" style="font-size: 14px;">Đăng nhập</span>
+                </div>
+            </a>
+            <a href="#" class="position-relative text-dark">
+                <i class="bi bi-bag-fill fs-4"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">0</span>
+            </a>
         </div>
     </div>
 </nav>
 
-<?php
-// Logic lấy banner trực tiếp (đơn giản hóa cho View)
-$db_banner = new Database();
-$conn_banner = $db_banner->getConnection();
-$stmt_b = $conn_banner->prepare("SELECT * FROM banners ORDER BY id DESC");
-$stmt_b->execute();
-$banner_list = $stmt_b->fetchAll(PDO::FETCH_ASSOC);
-?>
+<div class="container hero-section">
+    <div class="row g-3">
+        <div class="col-lg-8">
+            <div id="mainCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <?php
+                    $db_banner = new Database();
+                    $conn_banner = $db_banner->getConnection();
+                    $stmt_b = $conn_banner->prepare("SELECT * FROM banners ORDER BY id DESC LIMIT 5");
+                    $stmt_b->execute();
+                    $banner_list = $stmt_b->fetchAll(PDO::FETCH_ASSOC);
+                    ?>
 
-<div id="mainCarousel" class="carousel slide shadow-sm" data-bs-ride="carousel">
-    <div class="carousel-inner">
-        <?php if(count($banner_list) > 0): ?>
-            <?php foreach($banner_list as $index => $b): ?>
-            <div class="carousel-item <?php echo ($index == 0) ? 'active' : ''; ?>">
-                <img src="<?php echo BASE_URL . $b['image']; ?>" class="d-block w-100" alt="Banner">
-            </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div class="carousel-item active">
-                <div style="height: 400px; background: linear-gradient(45deg, #0d6efd, #0dcaf0); display: flex; align-items: center; justify-content: center; color: white;">
-                    <h1>Chào mừng đến với Tech Store</h1>
+                    <?php if(count($banner_list) > 0): ?>
+                        <?php foreach($banner_list as $index => $b): ?>
+                        <div class="carousel-item <?php echo ($index == 0) ? 'active' : ''; ?>">
+                            <img src="<?php echo BASE_URL . $b['image']; ?>" class="d-block w-100" alt="Banner" onerror="this.src='https://via.placeholder.com/800x400?text=TechStore+Promo'">
+                        </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <div class="carousel-item active"><img src="https://via.placeholder.com/800x380/0d6efd/ffffff?text=Săn+Sale+Cuối+Tuần" class="d-block w-100"></div>
+                        <div class="carousel-item"><img src="https://via.placeholder.com/800x380/dc3545/ffffff?text=iPhone+15+Series" class="d-block w-100"></div>
+                    <?php endif; ?>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>
+                <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>
             </div>
-        <?php endif; ?>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
-        <span class="carousel-control-next-icon"></span>
-    </button>
-</div>
-
-<div class="container my-5">
-    <div class="d-flex justify-content-between align-items-end mb-4">
-        <div>
-            <h6 class="text-primary fw-bold text-uppercase mb-1">Dành riêng cho bạn</h6>
-            <h2 class="fw-bold">Sản Phẩm Nổi Bật</h2>
         </div>
-        <a href="#" class="btn btn-outline-primary rounded-pill px-4">Xem tất cả <i class="bi bi-arrow-right"></i></a>
+        
+        <div class="col-lg-4 d-none d-lg-flex flex-column gap-3">
+            <div class="right-banner">
+                <img src="https://cdnv2.tgdd.vn/mwg-static/tgdd/Products/Images/44/358095/macbook-pro-14-inch-nano-m5-24gb-512gb-den-638962956337824725-600x600.jpg" alt="Promo 1">
+            </div>
+            <div class="right-banner">
+                <img src="https://cdn.tgdd.vn/Products/Images/54/315014/tai-nghe-bluetooth-airpods-pro-2nd-gen-usb-c-charge-apple-thumb-1-600x600.jpg" alt="Promo 2">
+            </div>
+        </div>
     </div>
 
-    <div class="row g-4">
+    <div class="policy-section">
+        <div class="row text-center text-md-start">
+            <div class="col-6 col-md-3 mb-3 mb-md-0 policy-item justify-content-center justify-content-md-start">
+                <i class="bi bi-patch-check-fill policy-icon"></i>
+                <div>100% Chính hãng<br><span class="text-muted fw-normal" style="font-size: 12px;">Cam kết chất lượng</span></div>
+            </div>
+            <div class="col-6 col-md-3 mb-3 mb-md-0 policy-item justify-content-center justify-content-md-start">
+                <i class="bi bi-truck policy-icon"></i>
+                <div>Miễn phí vận chuyển<br><span class="text-muted fw-normal" style="font-size: 12px;">Đơn hàng > 500k</span></div>
+            </div>
+            <div class="col-6 col-md-3 policy-item justify-content-center justify-content-md-start">
+                <i class="bi bi-arrow-repeat policy-icon"></i>
+                <div>30 Ngày đổi trả<br><span class="text-muted fw-normal" style="font-size: 12px;">Nếu có lỗi NSX</span></div>
+            </div>
+            <div class="col-6 col-md-3 policy-item justify-content-center justify-content-md-start">
+                <i class="bi bi-headset policy-icon"></i>
+                <div>Hỗ trợ 24/7<br><span class="text-muted fw-normal" style="font-size: 12px;">Hotline: 1900.6789</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="my-5">
+        <h5 class="fw-bold mb-4">DANH MỤC NỔI BẬT</h5>
+        <div class="d-flex gap-4 overflow-auto pb-3 text-nowrap">
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-phone"></i></div><small class="fw-bold">Điện thoại</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-laptop"></i></div><small class="fw-bold">Laptop</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-tablet"></i></div><small class="fw-bold">Tablet</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-earbuds"></i></div><small class="fw-bold">Tai nghe</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-smartwatch"></i></div><small class="fw-bold">Đồng hồ</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-pc-display"></i></div><small class="fw-bold">PC & Màn hình</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-mouse"></i></div><small class="fw-bold">Phụ kiện</small></div>
+            <div class="cat-item"><div class="cat-icon"><i class="bi bi-printer"></i></div><small class="fw-bold">Máy in</small></div>
+        </div>
+    </div>
+
+    <div class="mb-5 rounded overflow-hidden">
+        <img src="//cdnv2.tgdd.vn/mwg-static/tgdd/Banner/c4/0f/c40fbe43287853a4bf2dc845557a5cef.png" class="w-100 object-fit-cover">
+    </div>
+
+    <div class="section-title">
+        <span><i class="bi bi-fire text-danger"></i> GỢI Ý CHO BẠN</span>
+        <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">Xem tất cả <i class="bi bi-chevron-right"></i></a>
+    </div>
+
+    <div class="row g-3 mb-5">
         <?php foreach ($products as $p): ?>
             <?php 
-                // XỬ LÝ LOGIC HIỂN THỊ
-                // 1. Tính giá sau giảm
                 $original_price = $p['price'];
                 $discount = isset($p['discount']) ? $p['discount'] : 0;
                 $final_price = $original_price * (1 - ($discount / 100));
-                
-                // 2. Xử lý ảnh (nếu là link ngoài hoặc file nội bộ)
                 $img_src = (strpos($p['image'], 'http') !== false) ? $p['image'] : BASE_URL . $p['image'];
+                $brand = isset($p['brand']) ? $p['brand'] : 'TechStore';
                 
-                // 3. Xử lý Hãng (nếu chưa có thì để trống)
-                $brand = isset($p['brand']) ? $p['brand'] : 'CHÍNH HÃNG';
+                // Tạo số sao giả lập cho đẹp (nếu chưa có DB rating)
+                $rating = rand(4, 5); 
+                $sold = rand(10, 999);
             ?>
-            
-        <div class="col-6 col-md-3">
-            <div class="card h-100 position-relative">
+        <div class="col-6 col-md-4 col-lg-3 col-xl-2-4"> <div class="card-product h-100">
                 <?php if($discount > 0): ?>
-                    <span class="badge bg-danger position-absolute top-0 start-0 m-3 shadow-sm">-<?php echo $discount; ?>%</span>
-                <?php else: ?>
-                    <span class="badge bg-success position-absolute top-0 start-0 m-3 shadow-sm">Mới</span>
+                    <div class="discount-badge">-<?php echo $discount; ?>%</div>
                 <?php endif; ?>
-
-                <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>">
-                    <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" onerror="this.src='https://via.placeholder.com/300'">
-                </a>
                 
-                <div class="card-body d-flex flex-column pt-1">
-                    <div class="brand-tag mb-1"><?php echo $brand; ?></div>
+                <div class="card-img-wrapper">
+                    <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>">
+                        <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" onerror="this.src='https://via.placeholder.com/300'">
+                    </a>
+                    <div class="installment-badge">Trả góp 0%</div>
+                </div>
 
-                    <h5 class="card-title fs-6 fw-bold mb-2" style="height: 40px; overflow: hidden;">
-                        <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>" class="text-decoration-none text-dark">
-                            <?php echo $p['name']; ?>
-                        </a>
-                    </h5>
+                <div class="card-body d-flex flex-column">
+                    <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>" class="product-name" title="<?php echo $p['name']; ?>">
+                        <?php echo $p['name']; ?>
+                    </a>
 
-                    <div class="mt-auto">
-                        <div class="mb-3 d-flex align-items-center flex-wrap">
-                            <span class="price-tag"><?php echo number_format($final_price); ?>đ</span>
-                            
-                            <?php if($discount > 0): ?>
-                                <span class="price-old"><?php echo number_format($original_price); ?>đ</span>
-                            <?php endif; ?>
-                        </div>
-
-                        <button class="btn-add-cart">
-                            <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
-                        </button>
+                    <div class="price-row mt-2">
+                        <span class="current-price"><?php echo number_format($final_price, 0, ',', '.'); ?>đ</span>
+                        <?php if($discount > 0): ?>
+                            <span class="old-price"><?php echo number_format($original_price, 0, ',', '.'); ?>đ</span>
+                        <?php endif; ?>
                     </div>
+
+                    <div class="rating-row mt-auto">
+                        <?php for($i=0; $i<5; $i++) { echo ($i < $rating) ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>'; } ?>
+                        <span class="sold-count">(<?php echo $sold; ?> đã bán)</span>
+                    </div>
+
+                    <a href="#" class="btn btn-hover-cart mt-2">
+                        <i class="bi bi-cart-plus"></i> Thêm vào giỏ
+                    </a>
                 </div>
             </div>
         </div>
@@ -174,32 +239,48 @@ $banner_list = $stmt_b->fetchAll(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<footer class="bg-dark text-white py-5 mt-5">
-    <div class="container">
+<footer>
+    <div class="container pb-5">
         <div class="row">
-            <div class="col-md-4 mb-4">
-                <h5 class="fw-bold mb-3"><i class="bi bi-cpu-fill text-primary"></i> TECH STORE</h5>
-                <p class="text-secondary small">Hệ thống bán lẻ điện thoại, máy tính, phụ kiện chính hãng uy tín hàng đầu. Cam kết giá tốt nhất thị trường.</p>
-            </div>
-            <div class="col-md-4 mb-4">
-                <h6 class="fw-bold mb-3">Liên hệ</h6>
-                <p class="mb-1 small"><i class="bi bi-geo-alt me-2"></i> 123 Đường Công Nghệ, Hà Nội</p>
-                <p class="mb-1 small"><i class="bi bi-telephone me-2"></i> 0912.345.678</p>
-                <p class="small"><i class="bi bi-envelope me-2"></i> hotro@techstore.vn</p>
-            </div>
-            <div class="col-md-4 text-md-end">
-                <h6 class="fw-bold mb-3">Kết nối với chúng tôi</h6>
-                <div class="d-flex justify-content-md-end gap-2">
+            <div class="col-md-3 mb-4">
+                <h5 class="text-white fw-bold mb-3">TECH STORE</h5>
+                <p class="small">Hệ thống bán lẻ điện thoại, máy tính, phụ kiện chính hãng uy tín hàng đầu Việt Nam.</p>
+                <div class="d-flex gap-2 mt-3">
                     <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="bi bi-facebook"></i></a>
                     <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="bi bi-youtube"></i></a>
                     <a href="#" class="btn btn-outline-light btn-sm rounded-circle"><i class="bi bi-tiktok"></i></a>
                 </div>
             </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white fw-bold mb-3">Thông tin hỗ trợ</h6>
+                <ul class="list-unstyled small d-flex flex-column gap-2">
+                    <li><a href="#">Chính sách bảo hành</a></li>
+                    <li><a href="#">Chính sách đổi trả</a></li>
+                    <li><a href="#">Giao hàng & Thanh toán</a></li>
+                    <li><a href="#">Hướng dẫn mua hàng online</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white fw-bold mb-3">Tổng đài hỗ trợ</h6>
+                <ul class="list-unstyled small d-flex flex-column gap-2">
+                    <li>Mua hàng: <span class="text-white fw-bold">1900.6789</span> (8:00 - 21:30)</li>
+                    <li>Khiếu nại: <span class="text-white fw-bold">1900.6790</span> (8:00 - 21:30)</li>
+                    <li>Bảo hành: <span class="text-white fw-bold">1900.6791</span> (8:00 - 21:00)</li>
+                </ul>
+            </div>
+            <div class="col-md-3 mb-4">
+                <h6 class="text-white fw-bold mb-3">Thanh toán miễn phí</h6>
+                <div class="d-flex gap-2 flex-wrap">
+                    <img src="https://via.placeholder.com/50x30/fff/333?text=VISA" class="rounded">
+                    <img src="https://via.placeholder.com/50x30/fff/333?text=MC" class="rounded">
+                    <img src="https://via.placeholder.com/50x30/fff/333?text=MOMO" class="rounded">
+                    <img src="https://via.placeholder.com/50x30/fff/333?text=ZALO" class="rounded">
+                </div>
+            </div>
         </div>
-        <hr class="border-secondary my-4">
-        <div class="text-center text-secondary small">
-            &copy; 2024 Tech Store. All rights reserved. Designed by You.
-        </div>
+    </div>
+    <div class="bg-black py-3 text-center small">
+        &copy; 2024 Tech Store. All rights reserved.
     </div>
 </footer>
 
