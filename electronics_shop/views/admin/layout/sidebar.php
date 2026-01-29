@@ -12,7 +12,11 @@
     <ul class="nav flex-column">
         <li class="nav-item"><a class="nav-link" href="index.php?page=admin_dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a></li>
         <li class="nav-item"><a class="nav-link" href="index.php?page=admin_products"><i class="bi bi-box-seam"></i> Sản phẩm</a></li>
-        <li class="nav-item"><a class="nav-link" href="index.php?page=admin_orders"><i class="bi bi-receipt"></i> Đơn hàng <span class="badge bg-danger float-end">Mới</span></a></li>
+        <li class="nav-item">
+    <a class="nav-link" href="index.php?page=admin_orders">
+        <i class="bi bi-receipt"></i> Quản lý Đơn hàng
+    </a>
+</li>
         <li class="nav-item"><a class="nav-link" href="index.php?page=admin_banners"><i class="bi bi-images"></i> Banner</a></li>
         <li class="nav-item mt-5 border-top pt-3"><a class="nav-link text-danger" href="index.php?page=logout"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a></li>
     </ul>

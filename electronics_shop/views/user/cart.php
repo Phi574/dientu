@@ -1,6 +1,6 @@
-<?php include 'views/layout/header.php'; ?> 
+<?php 
 
-<div class="container my-5">
+include 'views/layouts/header.php'; ?>  <div class="container my-5">
     <h3 class="fw-bold mb-4 text-uppercase">Giỏ hàng của bạn</h3>
     
     <?php if(empty($cart)): ?>
@@ -30,7 +30,7 @@
                                 foreach($cart as $id => $item): 
                                     $total_item = $item['price'] * $item['qty'];
                                     $total_money += $total_item;
-                                    // Xử lý ảnh (nếu là link ngoài hoặc nội bộ)
+                                    // Xử lý ảnh
                                     $img_src = (strpos($item['image'], 'http') !== false) ? $item['image'] : BASE_URL . $item['image'];
                                 ?>
                                 <tr>
@@ -68,8 +68,6 @@
                         </div>
                         
                         <form action="index.php?page=checkout" method="POST">
-                            <input type="hidden" name="total_money" value="<?php echo $total_money; ?>">
-                            
                             <div class="mb-3"><input type="text" name="fullname" class="form-control" placeholder="Họ và tên (*)" required></div>
                             <div class="mb-3"><input type="text" name="phone" class="form-control" placeholder="Số điện thoại (*)" required></div>
                             <div class="mb-3"><input type="email" name="email" class="form-control" placeholder="Email (Nếu có)"></div>
@@ -101,4 +99,4 @@
     <?php endif; ?>
 </div>
 
-<?php include 'views/layout/footer.php'; ?>
+<?php include 'views/layouts/footer.php'; ?> ```

@@ -67,11 +67,11 @@ switch ($page) {
         $cartController->checkout();
         break;
 
-    // --- ADMIN ORDER ---
+    // --- QUẢN LÝ ĐƠN HÀNG ---
     case 'admin_orders':
-        // Check login admin ở đây nếu cần
         $orderController->list();
         break;
+        
     case 'admin_order_update':
         $orderController->updateStatus();
         break;
