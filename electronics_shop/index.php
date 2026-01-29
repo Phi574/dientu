@@ -4,11 +4,15 @@ define('BASE_URL', 'http://localhost/electronics_shop/');
 
 include_once 'config/database.php';
 include_once 'models/Product.php';
+include_once 'controllers/CartController.php';
+include_once 'controllers/OrderController.php';
 $page = isset($_GET['page']) ? $_GET['page'] : 'home';
 
 // Kết nối CSDL
 $database = new Database();
 $db = $database->getConnection();
+$cartController = new CartController($db);
+$orderController = new OrderController($db);
 
 // --- BẢO MẬT (GATEKEEPER) ---
 // Chặn mọi truy cập vào trang admin_... nếu chưa đăng nhập
@@ -47,6 +51,29 @@ switch ($page) {
         
     case 'admin_banners':
         include 'controllers/BannerController.php';
+        break;
+    
+    // --- GIỎ HÀNG & THANH TOÁN ---
+    case 'cart':
+        $cartController->index();
+        break;
+    case 'cart_add':
+        $cartController->add();
+        break;
+    case 'cart_delete':
+        $cartController->delete();
+        break;
+    case 'checkout':
+        $cartController->checkout();
+        break;
+
+    // --- ADMIN ORDER ---
+    case 'admin_orders':
+        // Check login admin ở đây nếu cần
+        $orderController->list();
+        break;
+    case 'admin_order_update':
+        $orderController->updateStatus();
         break;
         
     default:

@@ -79,9 +79,14 @@
             </div>
 
             <div class="d-flex gap-3 mb-4">
-                <button class="btn btn-primary btn-lg flex-grow-1 fw-bold py-3">MUA NGAY</button>
-                <button class="btn btn-outline-primary btn-lg p-3"><i class="bi bi-cart-plus-fill fs-4"></i></button>
-            </div>
+    <a href="index.php?page=cart_add&id=<?php echo $p['id']; ?>" class="btn btn-primary btn-lg flex-grow-1 fw-bold py-3 text-decoration-none text-center">
+        MUA NGAY <br> <span class="small fw-normal">Giao hàng tận nơi</span>
+    </a>
+    
+    <a href="index.php?page=cart_add&id=<?php echo $p['id']; ?>" class="btn btn-outline-primary btn-lg p-3">
+        <i class="bi bi-cart-plus-fill fs-4"></i>
+    </a>
+</div>
 
             <div class="row policy-box">
                 <div class="col-6 policy-item"><i class="bi bi-shield-check"></i> Bảo hành chính hãng 12 tháng</div>

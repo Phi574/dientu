@@ -76,9 +76,21 @@
         </a>
 
         <div class="search-box d-none d-lg-flex">
-            <i class="bi bi-search text-muted"></i>
-            <input type="text" class="search-input" placeholder="Bạn cần tìm gì? iPhone 15, Macbook...">
-        </div>
+    <form action="index.php" method="GET" class="d-flex align-items-center w-100">
+        <input type="hidden" name="page" value="products"> <button type="submit" class="btn border-0 p-0 text-muted ps-3">
+            <i class="bi bi-search"></i>
+        </button>
+        <input type="text" name="keyword" class="search-input form-control shadow-none border-0 bg-transparent" 
+               placeholder="Bạn cần tìm gì? iPhone 15..." 
+               value="<?php echo isset($_GET['keyword']) ? htmlspecialchars($_GET['keyword']) : ''; ?>">
+    </form>
+</div>
+
+<div class="d-flex align-items-center gap-3">
+    <a href="index.php?page=products" class="btn btn-sm btn-outline-dark fw-bold rounded-pill">
+        <i class="bi bi-grid"></i> Tất cả SP
+    </a>
+</div>
 
         <div class="d-flex align-items-center gap-4">
             <a href="#" class="d-flex align-items-center gap-2 text-decoration-none text-dark">
@@ -89,7 +101,7 @@
                 </div>
             </a>
             
-            <a href="#" class="position-relative text-dark">
+            <a href="index.php?page=cart" class="btn btn-light rounded-circle position-relative text-primary">
                 <i class="bi bi-bag-fill fs-4"></i>
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">0</span>
             </a>
@@ -221,7 +233,9 @@
                         <?php for($i=0; $i<5; $i++) { echo ($i < $rating) ? '<i class="bi bi-star-fill"></i>' : '<i class="bi bi-star"></i>'; } ?>
                         <span class="sold-count">(<?php echo $sold; ?> đã bán)</span>
                     </div>
-                    <a href="#" class="btn btn-hover-cart mt-2"><i class="bi bi-cart-plus"></i> Thêm vào giỏ</a>
+                    <a href="index.php?page=cart_add&id=<?php echo $p['id']; ?>" class="btn-add-cart text-decoration-none text-center d-block">
+                            <i class="bi bi-cart-plus me-1"></i> Thêm vào giỏ
+                        </a>
                 </div>
             </div>
         </div>
