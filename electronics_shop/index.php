@@ -36,7 +36,7 @@ switch ($page) {
 
     // --- ĐĂNG NHẬP / ĐĂNG XUẤT ---
     case 'login':
-    case 'logout':
+    case 'logout': 
         include 'controllers/AuthController.php';
         break;
 

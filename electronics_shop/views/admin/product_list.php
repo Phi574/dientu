@@ -43,26 +43,22 @@
             
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link active" href="index.php?page=admin_products">
-                        <i class="bi bi-box-seam"></i> Quản lý Sản phẩm
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="index.php?page=admin_banners">
-                        <i class="bi bi-images"></i> Quản lý Banner
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#" data-bs-toggle="modal" data-bs-target="#chatModal">
-                        <i class="bi bi-chat-dots"></i> Chat Hỗ trợ
-                    </a>
-                </li>
-                <li class="nav-item mt-4 border-top pt-3">
-                    <a class="nav-link text-danger" href="index.php">
-                        <i class="bi bi-box-arrow-right"></i> Đăng xuất
-                    </a>
-                </li>
-            </ul>
+                <a class="nav-link active" href="index.php?page=admin_products">
+                <i class="bi bi-box-seam"></i> Quản lý Sản phẩm
+            </a>
+        </li>
+        <li class="nav-item">
+        <a class="nav-link" href="index.php?page=admin_banners">
+        <i class="bi bi-images"></i> Quản lý Banner
+    </a>    
+</li>
+    
+    <li class="nav-item mt-5 pt-3 border-top">
+        <a class="nav-link text-danger fw-bold" href="index.php?page=logout" onclick="return confirm('Bạn có chắc muốn đăng xuất?');">
+            <i class="bi bi-box-arrow-right"></i> Đăng xuất
+        </a>
+    </li>
+</ul>
         </div>
 
         <div class="col-md-10 main-content">
