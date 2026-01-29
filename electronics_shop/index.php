@@ -31,6 +31,10 @@ switch ($page) {
     case 'home':
         include 'controllers/HomeController.php';
         break;
+
+    case 'product_detail':
+        include 'controllers/ProductController.php';
+        break;
         
     // --- KHU VỰC AUTH (Quan trọng: Đã thêm lại phần này) ---
     case 'login':

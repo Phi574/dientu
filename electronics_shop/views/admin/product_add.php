@@ -7,39 +7,56 @@
 </head>
 <body class="bg-light">
 
-<div class="container mt-5">
-    <div class="card shadow-sm" style="max-width: 600px; margin: 0 auto;">
-        <div class="card-header bg-success text-white">
+<div class="container mt-5 mb-5">
+    <div class="card shadow-sm" style="max-width: 800px; margin: 0 auto;">
+        <div class="card-header bg-primary text-white">
             <h4 class="mb-0">Thêm Sản Phẩm Mới</h4>
         </div>
         <div class="card-body">
-            <form action="index.php?page=admin_products&action=create" method="POST">
+            <form action="index.php?page=admin_products&action=create" method="POST" enctype="multipart/form-data">
                 
-                <div class="mb-3">
-                    <label class="form-label">Tên sản phẩm</label>
-                    <input type="text" name="name" class="form-control" required placeholder="Ví dụ: iPhone 15 Pro Max">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Tên sản phẩm</label>
+                        <input type="text" name="name" class="form-control" required placeholder="Ví dụ: iPhone 15 Pro Max">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Hãng sản xuất</label>
+                        <input type="text" name="brand" class="form-control" required placeholder="Ví dụ: Apple, Samsung...">
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Giá gốc (VNĐ)</label>
+                        <input type="number" name="price" class="form-control" required placeholder="Ví dụ: 25000000">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label fw-bold">Giảm giá (%)</label>
+                        <input type="number" name="discount" class="form-control" value="0" placeholder="Nhập số % giảm (VD: 10)">
+                    </div>
                 </div>
 
                 <div class="mb-3">
-                    <label class="form-label">Giá (VNĐ)</label>
-                    <input type="number" name="price" class="form-control" required placeholder="Ví dụ: 25000000">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">Mô tả chi tiết</label>
+                    <label class="form-label fw-bold">Mô tả chi tiết</label>
                     <textarea name="description" class="form-control" rows="4" placeholder="Nhập thông tin chi tiết sản phẩm..."></textarea>
+                </div>
+
+                <div class="mb-4 p-3 border rounded bg-white">
+                    <label class="form-label fw-bold text-danger">Hình ảnh sản phẩm (Chọn nhiều ảnh)</label>
+                    <div class="input-group">
+                        <input type="file" name="images[]" class="form-control" required accept="image/*" multiple>
+                    </div>
+                    <div class="form-text text-muted">
+                        * Ảnh đầu tiên bạn chọn sẽ được dùng làm <strong>Ảnh đại diện (Ảnh chính)</strong>.<br>
+                        * Các ảnh còn lại sẽ nằm trong thư viện ảnh chi tiết.
+                    </div>
                 </div>
 
                 <div class="d-flex justify-content-between">
                     <a href="index.php?page=admin_products" class="btn btn-secondary">Quay lại</a>
-                    <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
+                    <button type="submit" class="btn btn-primary fw-bold px-4">Lưu sản phẩm</button>
                 </div>
-                <div class="mb-3">
-        <label class="form-label">Hình ảnh sản phẩm</label>
-        <input type="file" name="image" class="form-control" accept="image/*">
-    </div>
-
-    <button type="submit" class="btn btn-primary">Lưu sản phẩm</button>
             </form>
         </div>
     </div>

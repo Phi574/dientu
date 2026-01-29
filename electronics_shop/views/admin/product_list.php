@@ -154,7 +154,10 @@
                                         <td class="text-danger fw-bold"><?php echo number_format($p['price']); ?> đ</td>
                                         <td class="text-muted small"><?php echo substr($p['description'], 0, 50); ?>...</td>
                                         <td class="text-center">
-                                            <a href="#" class="btn btn-sm btn-light text-primary border me-1" title="Sửa"><i class="bi bi-pencil-square"></i></a>
+                                            <a href="index.php?page=admin_products&action=edit&id=<?php echo $p['id']; ?>" 
+                                            class="btn btn-sm btn-light text-primary border me-1" title="Sửa">
+                                            <i class="bi bi-pencil-square"></i>
+                                        </a>
                                             <a href="index.php?page=admin_products&action=delete&id=<?php echo $p['id']; ?>" 
                                                class="btn btn-sm btn-light text-danger border" 
                                                onclick="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?');" title="Xóa">
