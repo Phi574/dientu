@@ -6,16 +6,12 @@ $db = $database->getConnection();
 
 $productModel = new Product($db);
 
-// Lấy action, nếu không có thì tự động chọn dựa theo tên trang
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 if ($action == '') {
-    // Nếu đang ở trang 'products' -> Mở trang danh sách cho Khách (index)
     if (isset($_GET['page']) && $_GET['page'] == 'products') {
         $action = 'index';
-    } 
-    // Mặc định còn lại -> Mở trang Quản trị (read)
-    else {
+    } else {
         $action = 'read';
     }
 }
@@ -23,22 +19,66 @@ if ($action == '') {
 switch ($action) {
     // --- 1. KHÁCH HÀNG: XEM TẤT CẢ SẢN PHẨM ---
     case 'index': 
-        // Lấy tham số bộ lọc
         $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
         $category = isset($_GET['category']) ? $_GET['category'] : '';
         $brand = isset($_GET['brand']) ? $_GET['brand'] : '';
         $price_range = isset($_GET['price']) ? $_GET['price'] : '';
         $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
 
-        // Gọi hàm lọc nâng cao
-        $products = $productModel->filter($keyword, $category, $brand, $price_range, $sort);
+        $products = $productModel->filter($keyword, $category, $brand, $price_range, $sort, 10, 0);
         
-        // Lấy danh sách hãng để hiện checkbox lọc
-        $brands = $productModel->getAllBrands();
+        $total_products = $productModel->countFilter($keyword, $category, $brand, $price_range);
+        
+        $brands = $productModel->getAllBrands(); 
         
         include 'views/user/products.php';
         break;
 
+    // --- 2. TẢI THÊM SẢN PHẨM (Load More) ---
+    case 'load_more':
+        $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
+        $category = isset($_GET['category']) ? $_GET['category'] : '';
+        $brand = isset($_GET['brand']) ? $_GET['brand'] : '';
+        $price_range = isset($_GET['price']) ? $_GET['price'] : '';
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : 'newest';
+        
+        $page = isset($_GET['p']) ? intval($_GET['p']) : 1;
+        $limit = 10;
+        $offset = ($page - 1) * $limit;
+
+        $products = $productModel->filter($keyword, $category, $brand, $price_range, $sort, $limit, $offset);
+
+        if (!empty($products)) {
+            foreach ($products as $p) {
+                $original_price = $p['price'];
+                $discount = isset($p['discount']) ? $p['discount'] : 0;
+                $final_price = $original_price * (1 - ($discount / 100));
+                $img_src = (strpos($p['image'], 'http') !== false) ? $p['image'] : BASE_URL . $p['image'];
+                echo '
+                <div class="col-6 col-md-4 col-lg-3">
+                    <div class="card-product h-100">
+                        <div class="card-img-wrapper">
+                            '.($discount > 0 ? '<div class="discount-badge">-'.$discount.'%</div>' : '').'
+                            <a href="index.php?page=product_detail&action=detail&id='.$p['id'].'">
+                                <img src="'.$img_src.'" class="card-img-top" alt="'.$p['name'].'" style="height: 200px; object-fit: cover;">
+                            </a>
+                        </div>
+                        <div class="card-body p-2">
+                            <a href="index.php?page=product_detail&action=detail&id='.$p['id'].'" class="product-name">
+                                '.$p['name'].'
+                            </a>
+                            <div>
+                                <span class="current-price">'.number_format($final_price).'đ</span>
+                                '.($discount > 0 ? '<span class="old-price">'.number_format($original_price).'đ</span>' : '').'
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+            }
+        }
+        exit; 
+        break;
+        
     // --- 2. KHÁCH HÀNG: XEM CHI TIẾT ---
     case 'detail':
         if (isset($_GET['id'])) {

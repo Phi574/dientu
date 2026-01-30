@@ -87,6 +87,23 @@ switch ($page) {
         include 'controllers/BannerController.php';
         break;
         
+    case 'admin_order_detail':
+        $orderController->detail();
+        break;
+
+    case 'admin_order_delete':
+        $orderController->delete();
+        break;
+
+    // --- CÁC TRANG TĨNH ---
+    case 'warranty':
+        include 'views/policy/warranty.php';
+        break;
+
+    case 'shipping':
+        include 'views/policy/shipping.php';
+        break;
+        
     default:
         echo "<div style='text-align:center; margin-top:50px;'>
                 <h2>404 - Trang không tồn tại</h2>

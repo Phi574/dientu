@@ -101,9 +101,11 @@
                 </div>
             </a>
             
-            <a href="index.php?page=cart" class="btn btn-light rounded-circle position-relative text-primary">
-                <i class="bi bi-bag-fill fs-4"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">0</span>
+            <a href="index.php?page=cart" class="position-relative text-dark btn btn-light rounded-circle">
+                <i class="bi bi-bag-fill fs-5 text-primary"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">
+                    <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+                </span>
             </a>
         </div>
     </div>
@@ -214,7 +216,7 @@
                         <div class="discount-badge" style="z-index: 10;">-<?php echo $discount; ?>%</div>
                     <?php endif; ?>
                     <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>">
-                        <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" onerror="this.src='https://via.placeholder.com/300'">
+                        <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" onerror="this.src='https://via.placeholder.com/300'" style="height: 200px; object-fit: cover;">
                     </a>
                     <div class="installment-badge">Trả góp 0%</div>
                 </div>
@@ -258,8 +260,8 @@
             <div class="col-md-3 mb-4">
                 <h6 class="text-white fw-bold mb-3">Thông tin hỗ trợ</h6>
                 <ul class="list-unstyled small d-flex flex-column gap-2">
-                    <li><a href="#">Chính sách bảo hành</a></li>
-                    <li><a href="#">Giao hàng & Thanh toán</a></li>
+                    <a href="index.php?page=warranty" class="text-light text-decoration-none">Chính sách bảo hành</a>
+                    <li><a href="index.php?page=shipping">Giao hàng & Thanh toán</a></li>
                 </ul>
             </div>
             <div class="col-md-3 mb-4">

@@ -29,7 +29,12 @@
         <a class="navbar-brand fw-bold text-primary" href="index.php"><i class="bi bi-cpu-fill"></i> TECH STORE</a>
         <div class="d-flex ms-auto gap-3">
              <a href="index.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-house"></i> Về trang chủ</a>
-             <a href="#" class="btn btn-light position-relative text-primary"><i class="bi bi-cart3 fs-5"></i><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span></a>
+             <a href="index.php?page=cart" class="position-relative text-dark btn btn-light rounded-circle">
+                <i class="bi bi-bag-fill fs-5 text-primary"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">
+                    <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+                </span>
+            </a>
         </div>
     </div>
 </nav>
@@ -138,7 +143,7 @@
                                     <div class="discount-badge">-<?php echo $discount; ?>%</div>
                                 <?php endif; ?>
                                 <a href="index.php?page=product_detail&action=detail&id=<?php echo $p['id']; ?>">
-                                    <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>">
+                                    <img src="<?php echo $img_src; ?>" class="card-img-top" alt="<?php echo $p['name']; ?>" style="height: 200px; object-fit: cover;">
                                 </a>
                             </div>
                             <div class="card-body p-2">
@@ -160,7 +165,70 @@
         </div>
     </div>
 </div>
-
+<?php if ($total_products > 10): ?>
+        <div class="text-center mt-5 mb-4" id="load-more-container">
+            <button class="btn btn-outline-primary rounded-pill px-5 py-2 fw-bold" id="btn-load-more" data-page="1">
+                Xem thêm sản phẩm <i class="bi bi-chevron-down ms-1"></i>
+            </button>
+        </div>
+    <?php endif; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#btn-load-more').click(function() {
+        var btn = $(this);
+        var currentPage = parseInt(btn.data('page'));
+        var nextPage = currentPage + 1;
+        
+        // Lấy các tham số lọc hiện tại trên URL
+        var urlParams = new URLSearchParams(window.location.search);
+        var keyword = urlParams.get('keyword') || '';
+        var category = urlParams.get('category') || '';
+        var brand = urlParams.get('brand') || '';
+        var price = urlParams.get('price') || '';
+        var sort = urlParams.get('sort') || '';
+
+        // Hiệu ứng đang tải
+        btn.html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Đang tải...');
+        btn.prop('disabled', true);
+
+        // Gọi AJAX
+        $.ajax({
+            url: 'index.php',
+            type: 'GET',
+            data: {
+                page: 'products',        // Giữ nguyên page hiện tại
+                action: 'load_more',     // Gọi vào case load_more trong Controller
+                p: nextPage,             // Trang tiếp theo
+                keyword: keyword,
+                category: category,
+                brand: brand,
+                price: price,
+                sort: sort
+            },
+            success: function(response) {
+                if ($.trim(response) !== "") {
+                    // Thêm sản phẩm mới vào cuối danh sách (Thay #product-list bằng ID div chứa sản phẩm của bạn)
+                    $('.row.g-3').append(response); // Nếu div bao quanh sản phẩm của bạn class là "row g-3"
+                    
+                    // Cập nhật số trang
+                    btn.data('page', nextPage);
+                    btn.html('Xem thêm sản phẩm <i class="bi bi-chevron-down ms-1"></i>');
+                    btn.prop('disabled', false);
+                } else {
+                    // Nếu không còn dữ liệu -> Ẩn nút
+                    $('#load-more-container').remove();
+                }
+            },
+            error: function() {
+                alert('Có lỗi xảy ra, vui lòng thử lại!');
+                btn.html('Xem thêm sản phẩm');
+                btn.prop('disabled', false);
+            }
+        });
+    });
+});
+</script>
+<?php include 'views/layouts/footer.php'; ?>
 </body>
 </html>

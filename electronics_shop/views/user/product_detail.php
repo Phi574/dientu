@@ -26,9 +26,11 @@
         <a class="navbar-brand fw-bold text-primary" href="index.php"><i class="bi bi-cpu-fill"></i> TECH STORE</a>
         <div class="ms-auto">
             <a href="index.php" class="btn btn-outline-secondary btn-sm"><i class="bi bi-arrow-left"></i> Tiếp tục mua sắm</a>
-            <a href="#" class="btn btn-light position-relative text-primary ms-2">
-                <i class="bi bi-cart3 fs-5"></i>
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">0</span>
+            <a href="index.php?page=cart" class="position-relative text-dark btn btn-light rounded-circle">
+                <i class="bi bi-bag-fill fs-5 text-primary"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-light">
+                    <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+                </span>
             </a>
         </div>
     </div>

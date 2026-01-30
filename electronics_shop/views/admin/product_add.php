@@ -56,13 +56,13 @@
                     </select>
                 </div>
                 <div class="mb-4 p-3 border rounded bg-white">
-                    <label class="form-label fw-bold text-danger">Hình ảnh sản phẩm (Chọn nhiều ảnh)</label>
+                    <label class="form-label fw-bold text-danger">Hình ảnh sản phẩm</label>
                     <div class="input-group">
                         <input type="file" name="images[]" class="form-control" required accept="image/*" multiple>
                     </div>
                     <div class="form-text text-muted">
                         * Ảnh đầu tiên bạn chọn sẽ được dùng làm <strong>Ảnh đại diện (Ảnh chính)</strong>.<br>
-                        * Các ảnh còn lại sẽ nằm trong thư viện ảnh chi tiết.
+                        * Các ảnh còn lại sẽ nằm trong thư viện ảnh chi tiết <strong>( thêm ảnh ở trong mục cập nhật sản phẩm )</strong>.<br>
                     </div>
                 </div>
 

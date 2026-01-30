@@ -64,10 +64,6 @@
                     <?php echo isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
                 </span>
             </a>
-            
-            <a href="index.php?page=admin_dashboard" class="text-secondary" title="Quản trị viên">
-                <i class="bi bi-person-circle fs-4"></i>
-            </a>
         </div>
     </div>
 </nav>
